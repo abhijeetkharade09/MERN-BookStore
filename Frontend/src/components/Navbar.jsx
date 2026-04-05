@@ -7,7 +7,14 @@ import { useAuth } from "../context/AuthProvider";
 
 const Navbar = () => {
   const [authUser,setAuthUser] = useAuth();
-  const [theme, setTheme]= useState(localStorage.getItem("theme")?localStorage.getItem("theme"):"light");
+// To this — also apply dark class immediately on state init:
+  const [theme, setTheme] = useState(() => {
+  const savedTheme = localStorage.getItem("theme") || "light";
+    if (savedTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+    return savedTheme;
+  });
 
   const element = document.documentElement;
   useEffect(()=>{

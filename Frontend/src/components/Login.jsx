@@ -12,45 +12,44 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const userInfo={
-          email:data.email,
-          password:data.password,
-        }  
-        await axios.post("https://mern-bookstore-backend-8nbj.onrender.com/user/login", userInfo) // axios.post is used to upload or save user data after login
-        .then((res)=>{
-          console.log(res.data); 
-          if(res.data){
-            toast.success('Login Successfully');
-            document.getElementById("my_modal_3").close();
-            setTimeout(()=>{
-              window.location.reload();
-              localStorage.setItem("Users", JSON.stringify(res.data.user))    // whenever, user is created we have to store it into local storage so we can use it with another components
-            },1000);                                                          // now after this use same logic for Login.jsx
-          } 
-         
-        }).catch((err)=>{                                    
-          if(err.response){
-            console.log(err);
-           toast.error("Error: "+err.response.data.message);
-           setTimeout(()=> {}, 2000);
-          }
-        })
-  }
+    const userInfo = {
+      email: data.email,
+      password: data.password,
+    };
+    await axios.post("https://mern-bookstore-backend-8nbj.onrender.com/user/login", userInfo)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success('Login Successfully');
+          document.getElementById("my_modal_3").close();
+          setTimeout(() => {
+            window.location.reload();
+            localStorage.setItem("Users", JSON.stringify(res.data.user));
+          }, 1000);
+        }
+      }).catch((err) => {
+        if (err.response) {
+          console.log(err);
+          toast.error("Error: " + err.response.data.message);
+          setTimeout(() => {}, 2000);
+        }
+      });
+  };
 
   return (
     <div>
       <dialog id="my_modal_3" className="modal">
-        <div className="modal-box relative">
-          {/* Close button (goes home) - kept outside the form so it won't affect submission */}
-          <Link to="/" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-           onClick={()=>document.getElementById("my_modal_3").close()}
+        <div className="modal-box relative bg-white dark:bg-slate-800 dark:text-white">
+          <Link
+            to="/"
+            className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+            onClick={() => document.getElementById("my_modal_3").close()}
           >
             ✕
           </Link>
 
           <h3 className="font-bold text-lg">Login</h3>
 
-          {/* Form starts here */}
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* Email */}
             <div className='mt-4 space-y-2'>
@@ -59,7 +58,7 @@ const Login = () => {
               <input
                 type='email'
                 placeholder='Enter your email'
-                className='w-80 px-3 py-1 border rounded-md outline-none'
+                className='w-80 px-3 py-1 border rounded-md outline-none dark:bg-slate-700 dark:text-white dark:border-slate-600 dark:placeholder-slate-400'
                 {...register("email", { required: true })}
               />
               <br />
@@ -73,7 +72,7 @@ const Login = () => {
               <input
                 type='password'
                 placeholder='Enter your Password'
-                className='w-80 px-3 py-1 border rounded-md outline-none'
+                className='w-80 px-3 py-1 border rounded-md outline-none dark:bg-slate-700 dark:text-white dark:border-slate-600 dark:placeholder-slate-400'
                 {...register("password", { required: true })}
               />
               <br />
@@ -88,7 +87,6 @@ const Login = () => {
               >
                 Login
               </button>
-
               <p>
                 Not registered?{" "}
                 <Link to="/signup" className='underline text-blue-500 cursor-pointer'>
@@ -97,11 +95,10 @@ const Login = () => {
               </p>
             </div>
           </form>
-          {/* Form ends here */}
         </div>
       </dialog>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

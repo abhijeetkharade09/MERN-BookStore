@@ -13,7 +13,7 @@ export default function AuthProvider({children}) { // here "children" means all 
     const [authUser, setAuthUser] = useState(
         initalAuthUser ? JSON.parse(initalAuthUser) : undefined
     );
-
+  
   return (
     // 4. Provide authUser and setAuthUser to all children components
     <AuthContext.Provider value={[authUser, setAuthUser]}>
@@ -28,4 +28,4 @@ export const useAuth = ()=> useContext(AuthContext);
 
 
 // Here, we have created  context API for our user to access globally anywhere to use.
-// After that wrap. it in main.jsx
+// After that wrap, it in main.jsx
